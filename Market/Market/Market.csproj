@@ -67,6 +67,12 @@
     <Compile Include="MarketIslemleri.designer.cs">
       <DependentUpon>MarketIslemleri.cs</DependentUpon>
     </Compile>
+    <Compile Include="Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu.designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,6 +82,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="MustBorcOdeme.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MustBorcOdeme.designer.cs">
+      <DependentUpon>MustBorcOdeme.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +108,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MarketIslemleri.resx">
       <DependentUpon>MarketIslemleri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MustBorcOdeme.resx">
+      <DependentUpon>MustBorcOdeme.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Market
 {
-    public partial class Form1 : Form
+    public partial class SatisIslemleri : Form
     {
-        public Form1()
+        public SatisIslemleri()
         {
             InitializeComponent();
         }

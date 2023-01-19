@@ -1,0 +1,819 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MarketOtomasyonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbl_ADVANCEPAYMENT">
+          <Key>
+            <PropertyRef Name="advancePaymentID" />
+          </Key>
+          <Property Name="advancePaymentID" Type="int" Nullable="false" />
+          <Property Name="sellID" Type="int" />
+          <Property Name="shoppingCartID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_CUSTOMER">
+          <Key>
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="customerID" Type="int" Nullable="false" />
+          <Property Name="customerName" Type="varchar" MaxLength="50" />
+          <Property Name="customerDebt" Type="float" />
+        </EntityType>
+        <EntityType Name="tbl_CUSTOMERDEBTPAYMENT">
+          <Key>
+            <PropertyRef Name="customerDebtPayment" />
+          </Key>
+          <Property Name="customerDebtPayment" Type="int" Nullable="false" />
+          <Property Name="customerID" Type="int" />
+          <Property Name="payment" Type="int" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="tbl_ONCREDIT">
+          <Key>
+            <PropertyRef Name="creditID" />
+          </Key>
+          <Property Name="creditID" Type="int" Nullable="false" />
+          <Property Name="sellID" Type="int" />
+          <Property Name="customerID" Type="int" />
+          <Property Name="shoppingCartID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_PRODUCT">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="productBrakod" Type="int" />
+          <Property Name="productName" Type="varchar" MaxLength="20" />
+          <Property Name="productPrice" Type="float" />
+          <Property Name="productStock" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'MarketOtomasyon.dbo.tbl_SELL' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tbl_SELL">
+          <Property Name="sellID" Type="int" />
+          <Property Name="definition" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="tbl_SELL2">
+          <Key>
+            <PropertyRef Name="sellID" />
+          </Key>
+          <Property Name="sellID" Type="int" Nullable="false" />
+          <Property Name="definition" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_SELLER">
+          <Key>
+            <PropertyRef Name="sellerID" />
+          </Key>
+          <Property Name="sellerID" Type="int" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_SHOPPINGCART">
+          <Key>
+            <PropertyRef Name="shoppingCartID" />
+          </Key>
+          <Property Name="shoppingCartID" Type="int" Nullable="false" />
+          <Property Name="sellID" Type="int" />
+          <Property Name="totalPrice" Type="float" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="tbl_SHOPPINGPRODUCTID">
+          <Key>
+            <PropertyRef Name="shoppingCartProductID" />
+          </Key>
+          <Property Name="shoppingCartProductID" Type="int" Nullable="false" />
+          <Property Name="shoppingCartID" Type="int" />
+          <Property Name="productBarcode" Type="int" />
+          <Property Name="sellQuantity" Type="float" />
+          <Property Name="labelPrice" Type="float" />
+        </EntityType>
+        <EntityType Name="tbl_SUPPDEBTPAYMENT">
+          <Key>
+            <PropertyRef Name="suppDebtPaymentID" />
+          </Key>
+          <Property Name="suppDebtPaymentID" Type="int" Nullable="false" />
+          <Property Name="sellerID" Type="int" />
+          <Property Name="suppID" Type="int" />
+          <Property Name="payment" Type="float" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="tbl_SUPPLIER">
+          <Key>
+            <PropertyRef Name="suppID" />
+          </Key>
+          <Property Name="suppID" Type="int" Nullable="false" />
+          <Property Name="suppName" Type="varchar" MaxLength="50" />
+          <Property Name="suppDebt" Type="float" />
+        </EntityType>
+        <EntityType Name="tbl_WAYBILL">
+          <Key>
+            <PropertyRef Name="waybillID" />
+          </Key>
+          <Property Name="waybillID" Type="int" Nullable="false" />
+          <Property Name="suppID" Type="int" />
+          <Property Name="productID" Type="int" />
+          <Property Name="productBarcode" Type="int" />
+          <Property Name="quantity" Type="float" />
+          <Property Name="inputPrice" Type="float" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <Association Name="FK_tbl_ADVANCEPAYMENT_tbl_SELL2">
+          <End Role="tbl_SELL2" Type="Self.tbl_SELL2" Multiplicity="0..1" />
+          <End Role="tbl_ADVANCEPAYMENT" Type="Self.tbl_ADVANCEPAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SELL2">
+              <PropertyRef Name="sellID" />
+            </Principal>
+            <Dependent Role="tbl_ADVANCEPAYMENT">
+              <PropertyRef Name="sellID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_CUSTOMERDEBTPAYMENT_tbl_CUSTOMER">
+          <End Role="tbl_CUSTOMER" Type="Self.tbl_CUSTOMER" Multiplicity="0..1" />
+          <End Role="tbl_CUSTOMERDEBTPAYMENT" Type="Self.tbl_CUSTOMERDEBTPAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_CUSTOMER">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="tbl_CUSTOMERDEBTPAYMENT">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ONCREDIT_tbl_CUSTOMER">
+          <End Role="tbl_CUSTOMER" Type="Self.tbl_CUSTOMER" Multiplicity="0..1" />
+          <End Role="tbl_ONCREDIT" Type="Self.tbl_ONCREDIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_CUSTOMER">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="tbl_ONCREDIT">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ONCREDIT_tbl_SELL2">
+          <End Role="tbl_SELL2" Type="Self.tbl_SELL2" Multiplicity="0..1" />
+          <End Role="tbl_ONCREDIT" Type="Self.tbl_ONCREDIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SELL2">
+              <PropertyRef Name="sellID" />
+            </Principal>
+            <Dependent Role="tbl_ONCREDIT">
+              <PropertyRef Name="sellID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ONCREDIT_tbl_SELL21">
+          <End Role="tbl_SELL2" Type="Self.tbl_SELL2" Multiplicity="0..1" />
+          <End Role="tbl_ONCREDIT" Type="Self.tbl_ONCREDIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SELL2">
+              <PropertyRef Name="sellID" />
+            </Principal>
+            <Dependent Role="tbl_ONCREDIT">
+              <PropertyRef Name="sellID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ONCREDIT_tbl_SHOPPINGCART">
+          <End Role="tbl_SHOPPINGCART" Type="Self.tbl_SHOPPINGCART" Multiplicity="0..1" />
+          <End Role="tbl_ONCREDIT" Type="Self.tbl_ONCREDIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SHOPPINGCART">
+              <PropertyRef Name="shoppingCartID" />
+            </Principal>
+            <Dependent Role="tbl_ONCREDIT">
+              <PropertyRef Name="shoppingCartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_SHOPPINGPRODUCTID_tbl_SHOPPINGCART">
+          <End Role="tbl_SHOPPINGCART" Type="Self.tbl_SHOPPINGCART" Multiplicity="0..1" />
+          <End Role="tbl_SHOPPINGPRODUCTID" Type="Self.tbl_SHOPPINGPRODUCTID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SHOPPINGCART">
+              <PropertyRef Name="shoppingCartID" />
+            </Principal>
+            <Dependent Role="tbl_SHOPPINGPRODUCTID">
+              <PropertyRef Name="shoppingCartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_SUPPDEBTPAYMENT_tbl_SELLER">
+          <End Role="tbl_SELLER" Type="Self.tbl_SELLER" Multiplicity="0..1" />
+          <End Role="tbl_SUPPDEBTPAYMENT" Type="Self.tbl_SUPPDEBTPAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SELLER">
+              <PropertyRef Name="sellerID" />
+            </Principal>
+            <Dependent Role="tbl_SUPPDEBTPAYMENT">
+              <PropertyRef Name="sellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_SUPPDEBTPAYMENT_tbl_SUPPLIER">
+          <End Role="tbl_SUPPLIER" Type="Self.tbl_SUPPLIER" Multiplicity="0..1" />
+          <End Role="tbl_SUPPDEBTPAYMENT" Type="Self.tbl_SUPPDEBTPAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SUPPLIER">
+              <PropertyRef Name="suppID" />
+            </Principal>
+            <Dependent Role="tbl_SUPPDEBTPAYMENT">
+              <PropertyRef Name="suppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WAYBILL_tbl_PRODUCT">
+          <End Role="tbl_PRODUCT" Type="Self.tbl_PRODUCT" Multiplicity="0..1" />
+          <End Role="tbl_WAYBILL" Type="Self.tbl_WAYBILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PRODUCT">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="tbl_WAYBILL">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WAYBILL_tbl_SUPPLIER">
+          <End Role="tbl_SUPPLIER" Type="Self.tbl_SUPPLIER" Multiplicity="0..1" />
+          <End Role="tbl_WAYBILL" Type="Self.tbl_WAYBILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SUPPLIER">
+              <PropertyRef Name="suppID" />
+            </Principal>
+            <Dependent Role="tbl_WAYBILL">
+              <PropertyRef Name="suppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MarketOtomasyonModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ADVANCEPAYMENT" EntityType="Self.tbl_ADVANCEPAYMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CUSTOMER" EntityType="Self.tbl_CUSTOMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CUSTOMERDEBTPAYMENT" EntityType="Self.tbl_CUSTOMERDEBTPAYMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ONCREDIT" EntityType="Self.tbl_ONCREDIT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_PRODUCT" EntityType="Self.tbl_PRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SELL2" EntityType="Self.tbl_SELL2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SELLER" EntityType="Self.tbl_SELLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SHOPPINGCART" EntityType="Self.tbl_SHOPPINGCART" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SHOPPINGPRODUCTID" EntityType="Self.tbl_SHOPPINGPRODUCTID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SUPPDEBTPAYMENT" EntityType="Self.tbl_SUPPDEBTPAYMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SUPPLIER" EntityType="Self.tbl_SUPPLIER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_WAYBILL" EntityType="Self.tbl_WAYBILL" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_ADVANCEPAYMENT_tbl_SELL2" Association="Self.FK_tbl_ADVANCEPAYMENT_tbl_SELL2">
+            <End Role="tbl_SELL2" EntitySet="tbl_SELL2" />
+            <End Role="tbl_ADVANCEPAYMENT" EntitySet="tbl_ADVANCEPAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_CUSTOMERDEBTPAYMENT_tbl_CUSTOMER" Association="Self.FK_tbl_CUSTOMERDEBTPAYMENT_tbl_CUSTOMER">
+            <End Role="tbl_CUSTOMER" EntitySet="tbl_CUSTOMER" />
+            <End Role="tbl_CUSTOMERDEBTPAYMENT" EntitySet="tbl_CUSTOMERDEBTPAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ONCREDIT_tbl_CUSTOMER" Association="Self.FK_tbl_ONCREDIT_tbl_CUSTOMER">
+            <End Role="tbl_CUSTOMER" EntitySet="tbl_CUSTOMER" />
+            <End Role="tbl_ONCREDIT" EntitySet="tbl_ONCREDIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ONCREDIT_tbl_SELL2" Association="Self.FK_tbl_ONCREDIT_tbl_SELL2">
+            <End Role="tbl_SELL2" EntitySet="tbl_SELL2" />
+            <End Role="tbl_ONCREDIT" EntitySet="tbl_ONCREDIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ONCREDIT_tbl_SELL21" Association="Self.FK_tbl_ONCREDIT_tbl_SELL21">
+            <End Role="tbl_SELL2" EntitySet="tbl_SELL2" />
+            <End Role="tbl_ONCREDIT" EntitySet="tbl_ONCREDIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ONCREDIT_tbl_SHOPPINGCART" Association="Self.FK_tbl_ONCREDIT_tbl_SHOPPINGCART">
+            <End Role="tbl_SHOPPINGCART" EntitySet="tbl_SHOPPINGCART" />
+            <End Role="tbl_ONCREDIT" EntitySet="tbl_ONCREDIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SHOPPINGPRODUCTID_tbl_SHOPPINGCART" Association="Self.FK_tbl_SHOPPINGPRODUCTID_tbl_SHOPPINGCART">
+            <End Role="tbl_SHOPPINGCART" EntitySet="tbl_SHOPPINGCART" />
+            <End Role="tbl_SHOPPINGPRODUCTID" EntitySet="tbl_SHOPPINGPRODUCTID" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SUPPDEBTPAYMENT_tbl_SELLER" Association="Self.FK_tbl_SUPPDEBTPAYMENT_tbl_SELLER">
+            <End Role="tbl_SELLER" EntitySet="tbl_SELLER" />
+            <End Role="tbl_SUPPDEBTPAYMENT" EntitySet="tbl_SUPPDEBTPAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SUPPDEBTPAYMENT_tbl_SUPPLIER" Association="Self.FK_tbl_SUPPDEBTPAYMENT_tbl_SUPPLIER">
+            <End Role="tbl_SUPPLIER" EntitySet="tbl_SUPPLIER" />
+            <End Role="tbl_SUPPDEBTPAYMENT" EntitySet="tbl_SUPPDEBTPAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WAYBILL_tbl_PRODUCT" Association="Self.FK_tbl_WAYBILL_tbl_PRODUCT">
+            <End Role="tbl_PRODUCT" EntitySet="tbl_PRODUCT" />
+            <End Role="tbl_WAYBILL" EntitySet="tbl_WAYBILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WAYBILL_tbl_SUPPLIER" Association="Self.FK_tbl_WAYBILL_tbl_SUPPLIER">
+            <End Role="tbl_SUPPLIER" EntitySet="tbl_SUPPLIER" />
+            <End Role="tbl_WAYBILL" EntitySet="tbl_WAYBILL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MarketOtomasyonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbl_ADVANCEPAYMENT">
+          <Key>
+            <PropertyRef Name="advancePaymentID" />
+          </Key>
+          <Property Name="advancePaymentID" Type="Int32" Nullable="false" />
+          <Property Name="sellID" Type="Int32" />
+          <Property Name="shoppingCartID" Type="Int32" />
+          <NavigationProperty Name="tbl_SELL2" Relationship="Self.FK_tbl_ADVANCEPAYMENT_tbl_SELL2" FromRole="tbl_ADVANCEPAYMENT" ToRole="tbl_SELL2" />
+        </EntityType>
+        <EntityType Name="tbl_CUSTOMER">
+          <Key>
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="customerID" Type="Int32" Nullable="false" />
+          <Property Name="customerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customerDebt" Type="Double" />
+          <NavigationProperty Name="tbl_CUSTOMERDEBTPAYMENT" Relationship="Self.FK_tbl_CUSTOMERDEBTPAYMENT_tbl_CUSTOMER" FromRole="tbl_CUSTOMER" ToRole="tbl_CUSTOMERDEBTPAYMENT" />
+          <NavigationProperty Name="tbl_ONCREDIT" Relationship="Self.FK_tbl_ONCREDIT_tbl_CUSTOMER" FromRole="tbl_CUSTOMER" ToRole="tbl_ONCREDIT" />
+        </EntityType>
+        <EntityType Name="tbl_CUSTOMERDEBTPAYMENT">
+          <Key>
+            <PropertyRef Name="customerDebtPayment" />
+          </Key>
+          <Property Name="customerDebtPayment" Type="Int32" Nullable="false" />
+          <Property Name="customerID" Type="Int32" />
+          <Property Name="payment" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_CUSTOMER" Relationship="Self.FK_tbl_CUSTOMERDEBTPAYMENT_tbl_CUSTOMER" FromRole="tbl_CUSTOMERDEBTPAYMENT" ToRole="tbl_CUSTOMER" />
+        </EntityType>
+        <EntityType Name="tbl_ONCREDIT">
+          <Key>
+            <PropertyRef Name="creditID" />
+          </Key>
+          <Property Name="creditID" Type="Int32" Nullable="false" />
+          <Property Name="sellID" Type="Int32" />
+          <Property Name="customerID" Type="Int32" />
+          <Property Name="shoppingCartID" Type="Int32" />
+          <NavigationProperty Name="tbl_CUSTOMER" Relationship="Self.FK_tbl_ONCREDIT_tbl_CUSTOMER" FromRole="tbl_ONCREDIT" ToRole="tbl_CUSTOMER" />
+          <NavigationProperty Name="tbl_SELL2" Relationship="Self.FK_tbl_ONCREDIT_tbl_SELL2" FromRole="tbl_ONCREDIT" ToRole="tbl_SELL2" />
+          <NavigationProperty Name="tbl_SELL21" Relationship="Self.FK_tbl_ONCREDIT_tbl_SELL21" FromRole="tbl_ONCREDIT" ToRole="tbl_SELL2" />
+          <NavigationProperty Name="tbl_SHOPPINGCART" Relationship="Self.FK_tbl_ONCREDIT_tbl_SHOPPINGCART" FromRole="tbl_ONCREDIT" ToRole="tbl_SHOPPINGCART" />
+        </EntityType>
+        <EntityType Name="tbl_PRODUCT">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="productBrakod" Type="Int32" />
+          <Property Name="productName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="productPrice" Type="Double" />
+          <Property Name="productStock" Type="Double" />
+          <NavigationProperty Name="tbl_WAYBILL" Relationship="Self.FK_tbl_WAYBILL_tbl_PRODUCT" FromRole="tbl_PRODUCT" ToRole="tbl_WAYBILL" />
+        </EntityType>
+        <EntityType Name="tbl_SELL2">
+          <Key>
+            <PropertyRef Name="sellID" />
+          </Key>
+          <Property Name="sellID" Type="Int32" Nullable="false" />
+          <Property Name="definition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_ADVANCEPAYMENT" Relationship="Self.FK_tbl_ADVANCEPAYMENT_tbl_SELL2" FromRole="tbl_SELL2" ToRole="tbl_ADVANCEPAYMENT" />
+          <NavigationProperty Name="tbl_ONCREDIT" Relationship="Self.FK_tbl_ONCREDIT_tbl_SELL2" FromRole="tbl_SELL2" ToRole="tbl_ONCREDIT" />
+          <NavigationProperty Name="tbl_ONCREDIT1" Relationship="Self.FK_tbl_ONCREDIT_tbl_SELL21" FromRole="tbl_SELL2" ToRole="tbl_ONCREDIT" />
+        </EntityType>
+        <EntityType Name="tbl_SELLER">
+          <Key>
+            <PropertyRef Name="sellerID" />
+          </Key>
+          <Property Name="sellerID" Type="Int32" Nullable="false" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_SUPPDEBTPAYMENT" Relationship="Self.FK_tbl_SUPPDEBTPAYMENT_tbl_SELLER" FromRole="tbl_SELLER" ToRole="tbl_SUPPDEBTPAYMENT" />
+        </EntityType>
+        <EntityType Name="tbl_SHOPPINGCART">
+          <Key>
+            <PropertyRef Name="shoppingCartID" />
+          </Key>
+          <Property Name="shoppingCartID" Type="Int32" Nullable="false" />
+          <Property Name="sellID" Type="Int32" />
+          <Property Name="totalPrice" Type="Double" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_ONCREDIT" Relationship="Self.FK_tbl_ONCREDIT_tbl_SHOPPINGCART" FromRole="tbl_SHOPPINGCART" ToRole="tbl_ONCREDIT" />
+          <NavigationProperty Name="tbl_SHOPPINGPRODUCTID" Relationship="Self.FK_tbl_SHOPPINGPRODUCTID_tbl_SHOPPINGCART" FromRole="tbl_SHOPPINGCART" ToRole="tbl_SHOPPINGPRODUCTID" />
+        </EntityType>
+        <EntityType Name="tbl_SHOPPINGPRODUCTID">
+          <Key>
+            <PropertyRef Name="shoppingCartProductID" />
+          </Key>
+          <Property Name="shoppingCartProductID" Type="Int32" Nullable="false" />
+          <Property Name="shoppingCartID" Type="Int32" />
+          <Property Name="productBarcode" Type="Int32" />
+          <Property Name="sellQuantity" Type="Double" />
+          <Property Name="labelPrice" Type="Double" />
+          <NavigationProperty Name="tbl_SHOPPINGCART" Relationship="Self.FK_tbl_SHOPPINGPRODUCTID_tbl_SHOPPINGCART" FromRole="tbl_SHOPPINGPRODUCTID" ToRole="tbl_SHOPPINGCART" />
+        </EntityType>
+        <EntityType Name="tbl_SUPPDEBTPAYMENT">
+          <Key>
+            <PropertyRef Name="suppDebtPaymentID" />
+          </Key>
+          <Property Name="suppDebtPaymentID" Type="Int32" Nullable="false" />
+          <Property Name="sellerID" Type="Int32" />
+          <Property Name="suppID" Type="Int32" />
+          <Property Name="payment" Type="Double" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_SELLER" Relationship="Self.FK_tbl_SUPPDEBTPAYMENT_tbl_SELLER" FromRole="tbl_SUPPDEBTPAYMENT" ToRole="tbl_SELLER" />
+          <NavigationProperty Name="tbl_SUPPLIER" Relationship="Self.FK_tbl_SUPPDEBTPAYMENT_tbl_SUPPLIER" FromRole="tbl_SUPPDEBTPAYMENT" ToRole="tbl_SUPPLIER" />
+        </EntityType>
+        <EntityType Name="tbl_SUPPLIER">
+          <Key>
+            <PropertyRef Name="suppID" />
+          </Key>
+          <Property Name="suppID" Type="Int32" Nullable="false" />
+          <Property Name="suppName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="suppDebt" Type="Double" />
+          <NavigationProperty Name="tbl_SUPPDEBTPAYMENT" Relationship="Self.FK_tbl_SUPPDEBTPAYMENT_tbl_SUPPLIER" FromRole="tbl_SUPPLIER" ToRole="tbl_SUPPDEBTPAYMENT" />
+          <NavigationProperty Name="tbl_WAYBILL" Relationship="Self.FK_tbl_WAYBILL_tbl_SUPPLIER" FromRole="tbl_SUPPLIER" ToRole="tbl_WAYBILL" />
+        </EntityType>
+        <EntityType Name="tbl_WAYBILL">
+          <Key>
+            <PropertyRef Name="waybillID" />
+          </Key>
+          <Property Name="waybillID" Type="Int32" Nullable="false" />
+          <Property Name="suppID" Type="Int32" />
+          <Property Name="productID" Type="Int32" />
+          <Property Name="productBarcode" Type="Int32" />
+          <Property Name="quantity" Type="Double" />
+          <Property Name="inputPrice" Type="Double" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_PRODUCT" Relationship="Self.FK_tbl_WAYBILL_tbl_PRODUCT" FromRole="tbl_WAYBILL" ToRole="tbl_PRODUCT" />
+          <NavigationProperty Name="tbl_SUPPLIER" Relationship="Self.FK_tbl_WAYBILL_tbl_SUPPLIER" FromRole="tbl_WAYBILL" ToRole="tbl_SUPPLIER" />
+        </EntityType>
+        <Association Name="FK_tbl_ADVANCEPAYMENT_tbl_SELL2">
+          <End Role="tbl_SELL2" Type="Self.tbl_SELL2" Multiplicity="0..1" />
+          <End Role="tbl_ADVANCEPAYMENT" Type="Self.tbl_ADVANCEPAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SELL2">
+              <PropertyRef Name="sellID" />
+            </Principal>
+            <Dependent Role="tbl_ADVANCEPAYMENT">
+              <PropertyRef Name="sellID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_CUSTOMERDEBTPAYMENT_tbl_CUSTOMER">
+          <End Role="tbl_CUSTOMER" Type="Self.tbl_CUSTOMER" Multiplicity="0..1" />
+          <End Role="tbl_CUSTOMERDEBTPAYMENT" Type="Self.tbl_CUSTOMERDEBTPAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_CUSTOMER">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="tbl_CUSTOMERDEBTPAYMENT">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ONCREDIT_tbl_CUSTOMER">
+          <End Role="tbl_CUSTOMER" Type="Self.tbl_CUSTOMER" Multiplicity="0..1" />
+          <End Role="tbl_ONCREDIT" Type="Self.tbl_ONCREDIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_CUSTOMER">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="tbl_ONCREDIT">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ONCREDIT_tbl_SELL2">
+          <End Role="tbl_SELL2" Type="Self.tbl_SELL2" Multiplicity="0..1" />
+          <End Role="tbl_ONCREDIT" Type="Self.tbl_ONCREDIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SELL2">
+              <PropertyRef Name="sellID" />
+            </Principal>
+            <Dependent Role="tbl_ONCREDIT">
+              <PropertyRef Name="sellID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ONCREDIT_tbl_SELL21">
+          <End Role="tbl_SELL2" Type="Self.tbl_SELL2" Multiplicity="0..1" />
+          <End Role="tbl_ONCREDIT" Type="Self.tbl_ONCREDIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SELL2">
+              <PropertyRef Name="sellID" />
+            </Principal>
+            <Dependent Role="tbl_ONCREDIT">
+              <PropertyRef Name="sellID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ONCREDIT_tbl_SHOPPINGCART">
+          <End Role="tbl_SHOPPINGCART" Type="Self.tbl_SHOPPINGCART" Multiplicity="0..1" />
+          <End Role="tbl_ONCREDIT" Type="Self.tbl_ONCREDIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SHOPPINGCART">
+              <PropertyRef Name="shoppingCartID" />
+            </Principal>
+            <Dependent Role="tbl_ONCREDIT">
+              <PropertyRef Name="shoppingCartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WAYBILL_tbl_PRODUCT">
+          <End Role="tbl_PRODUCT" Type="Self.tbl_PRODUCT" Multiplicity="0..1" />
+          <End Role="tbl_WAYBILL" Type="Self.tbl_WAYBILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PRODUCT">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="tbl_WAYBILL">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_SUPPDEBTPAYMENT_tbl_SELLER">
+          <End Role="tbl_SELLER" Type="Self.tbl_SELLER" Multiplicity="0..1" />
+          <End Role="tbl_SUPPDEBTPAYMENT" Type="Self.tbl_SUPPDEBTPAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SELLER">
+              <PropertyRef Name="sellerID" />
+            </Principal>
+            <Dependent Role="tbl_SUPPDEBTPAYMENT">
+              <PropertyRef Name="sellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_SHOPPINGPRODUCTID_tbl_SHOPPINGCART">
+          <End Role="tbl_SHOPPINGCART" Type="Self.tbl_SHOPPINGCART" Multiplicity="0..1" />
+          <End Role="tbl_SHOPPINGPRODUCTID" Type="Self.tbl_SHOPPINGPRODUCTID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SHOPPINGCART">
+              <PropertyRef Name="shoppingCartID" />
+            </Principal>
+            <Dependent Role="tbl_SHOPPINGPRODUCTID">
+              <PropertyRef Name="shoppingCartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_SUPPDEBTPAYMENT_tbl_SUPPLIER">
+          <End Role="tbl_SUPPLIER" Type="Self.tbl_SUPPLIER" Multiplicity="0..1" />
+          <End Role="tbl_SUPPDEBTPAYMENT" Type="Self.tbl_SUPPDEBTPAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SUPPLIER">
+              <PropertyRef Name="suppID" />
+            </Principal>
+            <Dependent Role="tbl_SUPPDEBTPAYMENT">
+              <PropertyRef Name="suppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WAYBILL_tbl_SUPPLIER">
+          <End Role="tbl_SUPPLIER" Type="Self.tbl_SUPPLIER" Multiplicity="0..1" />
+          <End Role="tbl_WAYBILL" Type="Self.tbl_WAYBILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SUPPLIER">
+              <PropertyRef Name="suppID" />
+            </Principal>
+            <Dependent Role="tbl_WAYBILL">
+              <PropertyRef Name="suppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MarketOtomasyonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tbl_ADVANCEPAYMENT" EntityType="Self.tbl_ADVANCEPAYMENT" />
+          <EntitySet Name="tbl_CUSTOMER" EntityType="Self.tbl_CUSTOMER" />
+          <EntitySet Name="tbl_CUSTOMERDEBTPAYMENT" EntityType="Self.tbl_CUSTOMERDEBTPAYMENT" />
+          <EntitySet Name="tbl_ONCREDIT" EntityType="Self.tbl_ONCREDIT" />
+          <EntitySet Name="tbl_PRODUCT" EntityType="Self.tbl_PRODUCT" />
+          <EntitySet Name="tbl_SELL2" EntityType="Self.tbl_SELL2" />
+          <EntitySet Name="tbl_SELLER" EntityType="Self.tbl_SELLER" />
+          <EntitySet Name="tbl_SHOPPINGCART" EntityType="Self.tbl_SHOPPINGCART" />
+          <EntitySet Name="tbl_SHOPPINGPRODUCTID" EntityType="Self.tbl_SHOPPINGPRODUCTID" />
+          <EntitySet Name="tbl_SUPPDEBTPAYMENT" EntityType="Self.tbl_SUPPDEBTPAYMENT" />
+          <EntitySet Name="tbl_SUPPLIER" EntityType="Self.tbl_SUPPLIER" />
+          <EntitySet Name="tbl_WAYBILL" EntityType="Self.tbl_WAYBILL" />
+          <AssociationSet Name="FK_tbl_ADVANCEPAYMENT_tbl_SELL2" Association="Self.FK_tbl_ADVANCEPAYMENT_tbl_SELL2">
+            <End Role="tbl_SELL2" EntitySet="tbl_SELL2" />
+            <End Role="tbl_ADVANCEPAYMENT" EntitySet="tbl_ADVANCEPAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_CUSTOMERDEBTPAYMENT_tbl_CUSTOMER" Association="Self.FK_tbl_CUSTOMERDEBTPAYMENT_tbl_CUSTOMER">
+            <End Role="tbl_CUSTOMER" EntitySet="tbl_CUSTOMER" />
+            <End Role="tbl_CUSTOMERDEBTPAYMENT" EntitySet="tbl_CUSTOMERDEBTPAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ONCREDIT_tbl_CUSTOMER" Association="Self.FK_tbl_ONCREDIT_tbl_CUSTOMER">
+            <End Role="tbl_CUSTOMER" EntitySet="tbl_CUSTOMER" />
+            <End Role="tbl_ONCREDIT" EntitySet="tbl_ONCREDIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ONCREDIT_tbl_SELL2" Association="Self.FK_tbl_ONCREDIT_tbl_SELL2">
+            <End Role="tbl_SELL2" EntitySet="tbl_SELL2" />
+            <End Role="tbl_ONCREDIT" EntitySet="tbl_ONCREDIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ONCREDIT_tbl_SELL21" Association="Self.FK_tbl_ONCREDIT_tbl_SELL21">
+            <End Role="tbl_SELL2" EntitySet="tbl_SELL2" />
+            <End Role="tbl_ONCREDIT" EntitySet="tbl_ONCREDIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ONCREDIT_tbl_SHOPPINGCART" Association="Self.FK_tbl_ONCREDIT_tbl_SHOPPINGCART">
+            <End Role="tbl_SHOPPINGCART" EntitySet="tbl_SHOPPINGCART" />
+            <End Role="tbl_ONCREDIT" EntitySet="tbl_ONCREDIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WAYBILL_tbl_PRODUCT" Association="Self.FK_tbl_WAYBILL_tbl_PRODUCT">
+            <End Role="tbl_PRODUCT" EntitySet="tbl_PRODUCT" />
+            <End Role="tbl_WAYBILL" EntitySet="tbl_WAYBILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SUPPDEBTPAYMENT_tbl_SELLER" Association="Self.FK_tbl_SUPPDEBTPAYMENT_tbl_SELLER">
+            <End Role="tbl_SELLER" EntitySet="tbl_SELLER" />
+            <End Role="tbl_SUPPDEBTPAYMENT" EntitySet="tbl_SUPPDEBTPAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SHOPPINGPRODUCTID_tbl_SHOPPINGCART" Association="Self.FK_tbl_SHOPPINGPRODUCTID_tbl_SHOPPINGCART">
+            <End Role="tbl_SHOPPINGCART" EntitySet="tbl_SHOPPINGCART" />
+            <End Role="tbl_SHOPPINGPRODUCTID" EntitySet="tbl_SHOPPINGPRODUCTID" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SUPPDEBTPAYMENT_tbl_SUPPLIER" Association="Self.FK_tbl_SUPPDEBTPAYMENT_tbl_SUPPLIER">
+            <End Role="tbl_SUPPLIER" EntitySet="tbl_SUPPLIER" />
+            <End Role="tbl_SUPPDEBTPAYMENT" EntitySet="tbl_SUPPDEBTPAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WAYBILL_tbl_SUPPLIER" Association="Self.FK_tbl_WAYBILL_tbl_SUPPLIER">
+            <End Role="tbl_SUPPLIER" EntitySet="tbl_SUPPLIER" />
+            <End Role="tbl_WAYBILL" EntitySet="tbl_WAYBILL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MarketOtomasyonModelStoreContainer" CdmEntityContainer="MarketOtomasyonEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ADVANCEPAYMENT">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_ADVANCEPAYMENT">
+              <MappingFragment StoreEntitySet="tbl_ADVANCEPAYMENT">
+                <ScalarProperty Name="advancePaymentID" ColumnName="advancePaymentID" />
+                <ScalarProperty Name="sellID" ColumnName="sellID" />
+                <ScalarProperty Name="shoppingCartID" ColumnName="shoppingCartID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CUSTOMER">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_CUSTOMER">
+              <MappingFragment StoreEntitySet="tbl_CUSTOMER">
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="customerName" ColumnName="customerName" />
+                <ScalarProperty Name="customerDebt" ColumnName="customerDebt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CUSTOMERDEBTPAYMENT">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_CUSTOMERDEBTPAYMENT">
+              <MappingFragment StoreEntitySet="tbl_CUSTOMERDEBTPAYMENT">
+                <ScalarProperty Name="customerDebtPayment" ColumnName="customerDebtPayment" />
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ONCREDIT">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_ONCREDIT">
+              <MappingFragment StoreEntitySet="tbl_ONCREDIT">
+                <ScalarProperty Name="creditID" ColumnName="creditID" />
+                <ScalarProperty Name="sellID" ColumnName="sellID" />
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="shoppingCartID" ColumnName="shoppingCartID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PRODUCT">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_PRODUCT">
+              <MappingFragment StoreEntitySet="tbl_PRODUCT">
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="productBrakod" ColumnName="productBrakod" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productPrice" ColumnName="productPrice" />
+                <ScalarProperty Name="productStock" ColumnName="productStock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SELL2">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_SELL2">
+              <MappingFragment StoreEntitySet="tbl_SELL2">
+                <ScalarProperty Name="sellID" ColumnName="sellID" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SELLER">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_SELLER">
+              <MappingFragment StoreEntitySet="tbl_SELLER">
+                <ScalarProperty Name="sellerID" ColumnName="sellerID" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SHOPPINGCART">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_SHOPPINGCART">
+              <MappingFragment StoreEntitySet="tbl_SHOPPINGCART">
+                <ScalarProperty Name="shoppingCartID" ColumnName="shoppingCartID" />
+                <ScalarProperty Name="sellID" ColumnName="sellID" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SHOPPINGPRODUCTID">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_SHOPPINGPRODUCTID">
+              <MappingFragment StoreEntitySet="tbl_SHOPPINGPRODUCTID">
+                <ScalarProperty Name="shoppingCartProductID" ColumnName="shoppingCartProductID" />
+                <ScalarProperty Name="shoppingCartID" ColumnName="shoppingCartID" />
+                <ScalarProperty Name="productBarcode" ColumnName="productBarcode" />
+                <ScalarProperty Name="sellQuantity" ColumnName="sellQuantity" />
+                <ScalarProperty Name="labelPrice" ColumnName="labelPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SUPPDEBTPAYMENT">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_SUPPDEBTPAYMENT">
+              <MappingFragment StoreEntitySet="tbl_SUPPDEBTPAYMENT">
+                <ScalarProperty Name="suppDebtPaymentID" ColumnName="suppDebtPaymentID" />
+                <ScalarProperty Name="sellerID" ColumnName="sellerID" />
+                <ScalarProperty Name="suppID" ColumnName="suppID" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SUPPLIER">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_SUPPLIER">
+              <MappingFragment StoreEntitySet="tbl_SUPPLIER">
+                <ScalarProperty Name="suppID" ColumnName="suppID" />
+                <ScalarProperty Name="suppName" ColumnName="suppName" />
+                <ScalarProperty Name="suppDebt" ColumnName="suppDebt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_WAYBILL">
+            <EntityTypeMapping TypeName="MarketOtomasyonModel.tbl_WAYBILL">
+              <MappingFragment StoreEntitySet="tbl_WAYBILL">
+                <ScalarProperty Name="waybillID" ColumnName="waybillID" />
+                <ScalarProperty Name="suppID" ColumnName="suppID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="productBarcode" ColumnName="productBarcode" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="inputPrice" ColumnName="inputPrice" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
